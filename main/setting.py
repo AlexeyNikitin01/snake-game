@@ -8,6 +8,8 @@ class Setting:
         self.w_food = 10
         self.color_food = (255, 0, 0) # Red
 
-        self.head_snake = [100, 50]
-        self.body_snake = [[100, 50], [90, 50], [80, 50]]
+        self.head_snake = [300, 250]
+        self.body_snake = [[300, 250], [290, 250], [280, 250]]
         self.color_snake = (3, 192, 60) # Green
+
+        self.color_score = (0, 0, 0)

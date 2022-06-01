@@ -9,6 +9,7 @@ from pygame import QUIT, KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE, event
 from snake import Snake
 from food import Food
 from setting import Setting
+from score import Score, TheBestScore
 
 
 class SnakeGame:
@@ -17,16 +18,20 @@ class SnakeGame:
         display.set_caption('SnakeGame')
 
         self.setting_game = Setting()
-        self.food = Food(self.setting_game)
-        self.snake = Snake(self.setting_game)
 
         self.screen = display.set_mode((self.setting_game.h, self.setting_game.w))
         self.bg_color = self.setting_game.color
         self.bg = image.load('static/bg.png')
 
+        self.score = Score(self.setting_game, self.screen)
+        self.bs = TheBestScore(self.setting_game, self.screen)
+        self.food = Food(self.setting_game)
+        self.snake = Snake(self.setting_game)
+
     def check_events(self, events):
         """Respond to keypresses events"""
         for event in events:
+            time.delay(50)
             if event.type == QUIT:
                 exit()
             elif event.type == KEYDOWN:
@@ -44,23 +49,35 @@ class SnakeGame:
     def food_collision(self):
         if self.food.food_location == self.snake.head_snake:
             self.snake.body_snake.insert(0, list(self.snake.head_snake))
-            self.food.food_location = [randrange(1, self.setting_game.w/10)*10,
-                             randrange(1, self.setting_game.h/10)*10]
+            self.food.food_location = [randrange(3, 550/10)*10,
+                                        randrange(9, 550/10)*10]
+            self.score.score += 1
 
     def check_limit(self):
-        if (self.snake.head_snake[0] == self.setting_game.w + 10 or \
-                self.snake.head_snake[0] == -10) or \
-            self.snake.head_snake[1] == self.setting_game.h + 10 or \
-                self.snake.head_snake[1] == -10:
+        if (self.snake.head_snake[0] == self.setting_game.w - 10 or \
+                self.snake.head_snake[0] == 10) or \
+            self.snake.head_snake[1] == self.setting_game.h - 10 or \
+                self.snake.head_snake[1] == 70:
             exit()
 
         for block in self.snake.body_snake[2:]:
             if self.snake.head_snake == block:
                 exit()
 
+    def check_best_score(self):
+        if self.bs.score_int < self.score.score:
+            self.bs.score = 'BEST: ' + str(self.score.score)
+            with open('best_score.txt', 'w') as f:
+                text = 'BEST: ' + str(self.score.score)
+                f.write(text)
+
     def run_game(self):
         while True:
-            time.delay(100)
+            time.delay(120)
+
+            self.score.show_score()
+            self.bs.show_score()
+            self.check_best_score()
 
             self.food.draw_food(self.screen)
             self.snake.draw_snake(self.screen)
