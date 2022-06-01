@@ -22,7 +22,6 @@ class Score:
 class TheBestScore(Score):
     def __init__(self, setting, game_screen):
         super().__init__(setting, game_screen)
-        self.base_score = self.score
         self.score, self.score_int = self.read_file_the_best_score()
         self.x, self.y = (400, 2)
         
