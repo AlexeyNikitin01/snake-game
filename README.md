@@ -1,4 +1,4 @@
 # snake-game
 
-Welcom!
+Welcome!
 This project create with PyGame
