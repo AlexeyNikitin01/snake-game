@@ -20,8 +20,8 @@ class Button:
         self.show_button()
 
     def show_button(self):
-        self.msg_image = self.text_font.render(self.msg, True, 
-                                      self.text_color, self.color)
+        self.msg_image = self.text_font.render(self.msg, True,
+                                               self.text_color, self.color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 

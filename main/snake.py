@@ -10,7 +10,7 @@ class Snake:
 
     def move_snake(self):
         """Moving snake"""
-        if self.direction == 'RIGHT':            
+        if self.direction == 'RIGHT':
             self.head_snake[0] += 10
         elif self.direction == 'LEFT':
             self.head_snake[0] -= 10
@@ -24,5 +24,5 @@ class Snake:
     def draw_snake(self, game_screen):
         """Draw body_snake snake on screen of game"""
         for pos in self.body_snake:
-            draw.rect(game_screen, self.color_snake, 
-                        Rect(pos[0], pos[1], 10, 10))
+            draw.rect(game_screen, self.color_snake,
+                      Rect(pos[0], pos[1], 10, 10))

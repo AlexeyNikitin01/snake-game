@@ -1,11 +1,9 @@
 from sys import exit
 from random import randrange
 
-
 from pygame import init, display, time, image
 from pygame import QUIT, KEYDOWN, K_RIGHT, K_LEFT, K_UP, K_DOWN, K_ESCAPE, K_p, K_r, event
 from pygame import MOUSEBUTTONDOWN, mouse
-
 
 from snake import Snake
 from food import Food
@@ -39,7 +37,7 @@ class SnakeGame:
         self.pause = 1
 
     def check_events(self, events):
-        """Respond to keypresses events"""
+        """Respond to key presses events"""
         for event in events:
             time.delay(50)
             if event.type == QUIT:
@@ -69,14 +67,14 @@ class SnakeGame:
     def food_collision(self):
         if self.food.food_location == self.snake.head_snake:
             self.snake.body_snake.insert(0, list(self.snake.head_snake))
-            self.food.food_location = [randrange(3, 550/10)*10,
-                                        randrange(9, 550/10)*10]
+            self.food.food_location = [randrange(3, 55) * 10,
+                                       randrange(9, 55) * 10]
             self.score.score += 1
 
     def check_limit(self):
-        if (self.snake.head_snake[0] == self.setting_game.w - 10 or \
-                self.snake.head_snake[0] == 10) or \
-            self.snake.head_snake[1] == self.setting_game.h - 10 or \
+        if (self.snake.head_snake[0] == self.setting_game.w - 10 or
+            self.snake.head_snake[0] == 10) or \
+                self.snake.head_snake[1] == self.setting_game.h - 10 or \
                 self.snake.head_snake[1] == 70:
             self.game_activate = False
 
@@ -90,7 +88,7 @@ class SnakeGame:
             with open('best_score.txt', 'w') as f:
                 text = 'BEST: ' + str(self.score.score)
                 f.write(text)
-    
+
     def reset(self):
         self.score.score = 0
         self.snake.head_snake = [300, 250]
@@ -108,7 +106,7 @@ class SnakeGame:
                 self.score.show_score()
                 self.bs.show_score()
 
-            elif self.game_activate == True:
+            elif self.game_activate:
                 self.score.show_score()
                 self.bs.show_score()
                 self.check_best_score()
@@ -120,7 +118,7 @@ class SnakeGame:
                 self.food_collision()
                 self.check_limit()
 
-            elif self.game_activate == False:   
+            elif not self.game_activate:
                 self.reset()
                 self.button.draw_button()
                 self.button_exit.draw_button()

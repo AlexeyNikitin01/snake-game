@@ -7,8 +7,8 @@ from pygame import draw, Rect
 class Food:
     def __init__(self, setting):
         self.setting = setting
-        self.food_location = [randrange(3, 550/10)*10,
-                              randrange(9, 550/10)*10]
+        self.food_location = [randrange(3, 55)*10,
+                              randrange(9, 55)*10]
 
     def draw_food(self, game_screen):
         draw.rect(game_screen, self.setting.color_food, 
